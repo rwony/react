@@ -13,8 +13,9 @@ class App extends Component {
     // 그 컴포넌트를 초기화 싶은 코드는 이(constructor) 안에 작성한다.
     super(props);
 
-    // state 값 초기화
+    this.max_content_id = 3;
     this.state = {
+      // state 값 초기화
       mode: "create",
       selected_content_id: 2,
       subject: { title: "WEB", sub: "World Wide Web!" },
@@ -49,7 +50,24 @@ class App extends Component {
         _article = <ReadContent title={_title} desc={_desc} />;
       }
     } else if (this.state.mode === "create") {
-      _article = <CreateContent />;
+      _article = (
+        <CreateContent
+          onSubmit={(_title, _desc) => {
+            // add content to this.state.contents
+            ++this.max_content_id;
+
+            const _contents = this.state.contents.concat({
+              id: this.max_content_id,
+              title: _title,
+              desc: _desc,
+            });
+
+            this.setState({
+              contents: _contents,
+            }); // 따라서 setState 함수를 사용해야 함
+          }}
+        />
+      );
     }
 
     return (

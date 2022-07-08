@@ -10,6 +10,7 @@ class CreateContent extends Component {
           method={"post"}
           onSubmit={(e) => {
             e.preventDefault();
+            this.props.onSubmit(e.target.title.value, e.target.desc.value);
           }}
         >
           <p>
