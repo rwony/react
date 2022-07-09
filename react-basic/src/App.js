@@ -64,7 +64,7 @@ class App extends Component {
 
             this.setState({
               contents: _contents,
-            }); // 따라서 setState 함수를 사용해야 함
+            }); //setState 함수를 사용해서 바로 렌더링 되도록한다.
           }}
         />
       );
