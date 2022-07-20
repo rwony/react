@@ -52,10 +52,19 @@ function App() {
     setData(newDiaryList);
   };
 
+  // 일기 수정 완료 함수
+  const onEdit = (targetId, newContent) => {
+    setData(
+      data.map((it) =>
+        it.id === targetId ? { ...it, content: newContent } : it
+      )
+    );
+  };
+
   return (
     <div className="App">
       <DiaryEditor onCreate={onCreate} />
-      <DiaryList diaryList={data} onRemove={onRemove} />
+      <DiaryList diaryList={data} onEdit={onEdit} onRemove={onRemove} />
     </div>
   );
 }
