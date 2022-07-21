@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./App.css";
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
@@ -31,7 +31,7 @@ function App() {
   }, []);
 
   // 새로운 일기를 추가하는 함수
-  const onCreate = (author, content, emotion) => {
+  const onCreate = useCallback((author, content, emotion) => {
     const created_date = new Date().getTime();
     const newItem = {
       author,
@@ -42,23 +42,26 @@ function App() {
     };
 
     dataId.current++; // id 값 증가
-    setData([newItem, ...data]);
-  };
+
+    // setState함수에 함수를 전달하는 것을 함수형 업데이트라고 한다.
+    // 이렇게 함수형 업데이트를 사용하면, useCallback 함수의 2번째 인자인 dependency array를 비워도
+    // 최신 state를 인자로 참고할 수 있게 되면서 depth를 비울 수 있게 된다.
+    setData((data) => [newItem, ...data]);
+  }, []);
 
   // 일기를 삭제하는 함수
-  const onRemove = (targetId) => {
-    const newDiaryList = data.filter((it) => it.id !== targetId);
-    setData(newDiaryList);
-  };
+  const onRemove = useCallback((targetId) => {
+    setData((data) => data.filter((it) => it.id !== targetId));
+  }, []);
 
   // 일기 수정 완료 함수
-  const onEdit = (targetId, newContent) => {
-    setData(
+  const onEdit = useCallback((targetId, newContent) => {
+    setData((data) =>
       data.map((it) =>
         it.id === targetId ? { ...it, content: newContent } : it
       )
     );
-  };
+  }, []);
 
   // 감정 점수에 따른 데이터 카운트 함수
   // useMemo를 사용하면 함수를 받아서 값을 넘기기 때문에, 아래에서 함수 호출이 아닌 값을 넣는다.
