@@ -23,7 +23,7 @@ const DiaryItem = ({
     }
   };
 
-  // 수정 취소시, localContent의 값을 원본 데이터로 변경하기
+  // 수정 취소시, localContent의 값을 원본 데이터로 변경
   const handleQuitEdit = () => {
     setIsEdit(false);
     setLocalContent(content);

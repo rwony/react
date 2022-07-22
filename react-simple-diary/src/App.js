@@ -7,8 +7,7 @@ function App() {
   const [data, setData] = useState([]); // 일기 데이터 초기값
   const dataId = useRef(0); // 아이디 고유 값
 
-  // API를 이용하여 dummyData 가져오기
-  // async를 사용하여 promise를 반환하는 비동기 함수로 사용
+  // API를 이용하여 dummyData 가져오기 : async를 사용하여 promise를 반환하는 비동기 함수로 사용
   const getData = async () => {
     const res = await fetch(
       "https://jsonplaceholder.typicode.com/comments"
@@ -43,9 +42,9 @@ function App() {
 
     dataId.current++; // id 값 증가
 
-    // setState함수에 함수를 전달하는 것을 함수형 업데이트라고 한다.
-    // 이렇게 함수형 업데이트를 사용하면, useCallback 함수의 2번째 인자인 dependency array를 비워도
-    // 최신 state를 인자로 참고할 수 있게 되면서 depth를 비울 수 있게 된다.
+    // 함수형 업데이트 : setState 같은 상태 함수에 함수를 전달하는 것을 라고 한다.
+    // 이렇게 함수형 업데이트를 사용하면, useCallback 함수의 2번째 인자인 Dependency array를 비워도
+    // 최신 state를 인자로 참고할 수 있게 되면서 depth(2번째 인자인 Dependency array)를 비울 수 있게 된다.
     setData((data) => [newItem, ...data]);
   }, []);
 
@@ -79,8 +78,8 @@ function App() {
     <div className="App">
       <DiaryEditor onCreate={onCreate} />
       <div>전체 일기 : {data.length}</div>
-      <div>기분 좋은 일기 개수 : {goodCount}</div>
-      <div>기분 나쁜 일기 개수 : {badCount}</div>
+      <div>기분 좋은 일기 : {goodCount}</div>
+      <div>기분 나쁜 일기 : {badCount}</div>
       <div>기분 좋은 일기 비율 : {goodRatio}</div>
       <DiaryList diaryList={data} onEdit={onEdit} onRemove={onRemove} />
     </div>

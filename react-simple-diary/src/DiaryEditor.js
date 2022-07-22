@@ -70,7 +70,7 @@ const DiaryEditor = ({ onCreate }) => {
         </select>
       </div>
       <div>
-        <button onClick={handleSubmit}>일기 저장</button>
+        <button onClick={handleSubmit}>저장</button>
       </div>
     </div>
   );
