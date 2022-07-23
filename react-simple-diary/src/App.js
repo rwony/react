@@ -1,10 +1,32 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useReducer, useRef } from "react";
 import "./App.css";
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
 
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "INIT": {
+      return action.data; // 새로운 state가 된다.
+    }
+    case "CREATE": {
+      const created_date = new Date().getTime();
+      const newItem = {
+        ...action.data,
+        created_date,
+      };
+      return [newItem, ...state];
+    }
+    case "EDIT":
+    case "REMOVE":
+    default:
+      return state;
+  }
+};
+
 function App() {
-  const [data, setData] = useState([]); // 일기 데이터 초기값
+  // const [data, setData] = useState([]); // 일기 데이터 초기값
+  const [data, dispatch] = useReducer(reducer, []);
+
   const dataId = useRef(0); // 아이디 고유 값
 
   // API를 이용하여 dummyData 가져오기 : async를 사용하여 promise를 반환하는 비동기 함수로 사용
@@ -22,7 +44,8 @@ function App() {
         id: dataId.current++,
       };
     });
-    setData(initData);
+
+    dispatch({ type: "INIT", data: initData });
   };
 
   useEffect(() => {
@@ -31,21 +54,12 @@ function App() {
 
   // 새로운 일기를 추가하는 함수
   const onCreate = useCallback((author, content, emotion) => {
-    const created_date = new Date().getTime();
-    const newItem = {
-      author,
-      content,
-      emotion,
-      created_date,
-      id: dataId.current,
-    };
+    dispatch({
+      type: "CREATE",
+      data: { author, content, emotion, id: dataId.current },
+    });
 
     dataId.current++; // id 값 증가
-
-    // 함수형 업데이트 : setState 같은 상태 함수에 함수를 전달하는 것을 라고 한다.
-    // 이렇게 함수형 업데이트를 사용하면, useCallback 함수의 2번째 인자인 Dependency array를 비워도
-    // 최신 state를 인자로 참고할 수 있게 되면서 depth(2번째 인자인 Dependency array)를 비울 수 있게 된다.
-    setData((data) => [newItem, ...data]);
   }, []);
 
   // 일기를 삭제하는 함수
