@@ -31,6 +31,15 @@ const DiaryList = ({ diaryList }) => {
 
   // 정렬 순서
   const getProcessedDiaryList = () => {
+    // 필터링 함수
+    const filterCallBack = (item) => {
+      if (filter === 'good') {
+        return parseInt(item.emotion) <= 3;
+      } else {
+        return parseInt(item.emotion) > 3;
+      }
+    }
+  
     const compare = (a, b) => {
       if (sortType === "lastest") {
         return parseInt(b.date) - parseInt(a.date);
@@ -40,8 +49,8 @@ const DiaryList = ({ diaryList }) => {
     };
     const copyList = JSON.parse(JSON.stringify(diaryList));
 
-    // const filterdList =
-
+    const filterdList = filter === 'all' ? copyList : copyList.filter((it) => filterCallBack(it));
+ 
     const sortedList = copyList.sort(compare);
 
     return sortedList;
