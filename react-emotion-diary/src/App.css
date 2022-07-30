@@ -89,3 +89,33 @@ header .head_btn_right {
 header button {
   font-family: "Noto Sans KR", sans-serif;
 }
+
+/* DiaryList */
+.DiaryList .menu_wrapper {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0 30px;
+}
+
+.DiaryList .menu_wrapper .right_col {
+  flex-grow: 1;
+}
+
+.DiaryList .menu_wrapeer .right_col button {
+  width: 100%;
+}
+
+.DiaryList .menu_wrapper .left_col {
+
+}
+
+.DiaryList .ControlMenu {
+  margin-right: 10px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  bacground-color: #ececec;
+  font-family: 'Noto Sans KR', sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+}
