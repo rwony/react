@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import EmotionItem from "./EmotionItem";
+
+import { DiaryDispatchContext } from "./../App.js";
 
 import MyButton from "./MyButton";
 import MyHeader from "./MyHeader";
+import EmotionItem from "./EmotionItem";
 
 const emotionList = [
   {
@@ -39,13 +41,25 @@ const getStringDate = (date) => {
 
 const DiaryEditor = () => {
   const navigate = useNavigate();
+  const contentRef = useRef();
+  const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
 
   const [date, setDate] = useState(getStringDate(new Date()));
   const [emotion, setEmotion] = useState(3);
+  const [content, setContent] = useState("");
 
   const handleClickEmote = (emotion) => {
-    console.log(1);
     setEmotion(emotion);
+  };
+
+  const handleSubmit = () => {
+    if (content.length < 1) {
+      contentRef.current.focus();
+      return;
+    }
+
+    onCreate(date, content, emotion);
+    navigate("/", { replace: true });
   };
 
   return (
@@ -76,8 +90,32 @@ const DiaryEditor = () => {
                 key={it.emotion_id}
                 {...it}
                 onClick={handleClickEmote}
+                isSelected={it.emotion_id === emotion}
               />
             ))}
+          </div>
+        </section>
+
+        <section>
+          <h4>오늘의 일기</h4>
+          <div className="input_box text_wrapper">
+            <textarea
+              ref={contentRef}
+              value={content}
+              onChange={(e) => setContent(e.target.value)}
+              placeholder={"오늘은 어땠나요?"}
+            />
+          </div>
+        </section>
+
+        <section>
+          <div className="control_box">
+            <MyButton text={"취소"} onClick={() => navigate(-1)} />
+            <MyButton
+              text={"작성완료"}
+              type={"positive"}
+              onClick={handleSubmit}
+            />
           </div>
         </section>
       </div>
