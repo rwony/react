@@ -194,6 +194,25 @@ header button {
   gap: 2%;
 }
 
+.DiaryEditor textarea {
+  width: 100%;
+  min-height: 200px;
+  box-sizing: border-box;
+  padding: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #ececec;
+  font-family: "Noto Sans KR", sans-serif;
+  font-size: 18px;
+  resize: vertical;
+}
+
+.DiaryEditor .control_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* EmotionItem */
 .EmotionItem {
   display: flex;
@@ -212,4 +231,33 @@ header button {
 
 .EmotionItem span {
   font-size: 18px;
+}
+
+.EmotionItem_off {
+  background-color: #ececec;
+}
+
+.EmotionItem_on_1 {
+  background-color: #64c964;
+  color: #fff;
+}
+
+.EmotionItem_on_2 {
+  background-color: #9dd772;
+  color: #fff;
+}
+
+.EmotionItem_on_3 {
+  background-color: #fdce17;
+  color: #fff;
+}
+
+.EmotionItem_on_4 {
+  background-color: #fd8446;
+  color: #fff;
+}
+
+.EmotionItem_on_5 {
+  background-color: #fd565f;
+  color: #fff;
 }
