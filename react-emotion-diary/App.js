@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import New from "./pages/New";
 import Edit from "./pages/Edit";
 import Diary from "./pages/Diary";
-import React, { useReducer, useRef } from "react";
+import React, { useEffect, useReducer, useRef } from "react";
 
 const reducer = (state, action) => {
   let newState = [];
@@ -31,47 +31,28 @@ const reducer = (state, action) => {
       return state;
   }
 
+  localStorage.setItem("diary", JSON.stringify(newState));
   return newState;
 };
 
 export const DiaryStateContext = React.createContext();
 export const DiaryDispatchContext = React.createContext();
 
-const dummyData = [
-  {
-    id: 11,
-    emotion: 1,
-    content: "일기 1",
-    date: 1659421286104,
-  },
-  {
-    id: 12,
-    emotion: 2,
-    content: "일기 2",
-    date: 1659421297504,
-  },
-  {
-    id: 13,
-    emotion: 3,
-    content: "일기 3",
-    date: 1659421298504,
-  },
-  {
-    id: 14,
-    emotion: 4,
-    content: "일기 4",
-    date: 1659421299204,
-  },
-  {
-    id: 15,
-    emotion: 5,
-    content: "일기 5",
-    date: 1659421299904,
-  },
-];
-
 function App() {
-  const [data, dispatch] = useReducer(reducer, dummyData);
+  const [data, dispatch] = useReducer(reducer, []);
+
+  useEffect(() => {
+    const localData = localStorage.getItem("diary");
+    if (localData) {
+      const diaryList = JSON.parse(localData).sort(
+        (a, b) => parseInt(b.id) - parseInt(a.id)
+      );
+      dataId.current = parseInt(diaryList[0].id) + 1;
+
+      dispatch({ type: "INIT", data: diaryList });
+    }
+  }, []);
+
   const dataId = useRef(0);
 
   // CREATE
@@ -85,6 +66,7 @@ function App() {
         emotion,
       },
     });
+
     dataId.current++;
   };
 
@@ -114,7 +96,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/new" element={<New />} />
-              <Route path="/edit" element={<Edit />} />
+              <Route path="/edit/:id" element={<Edit />} />
               <Route path="/diary/:id" element={<Diary />} />
             </Routes>
           </div>

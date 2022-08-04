@@ -9,9 +9,9 @@ const Home = () => {
   const diaryList = useContext(DiaryStateContext);
 
   // 다이어리 게시글을 월에 따라 관리하기 위한 state 선언
-  const [data, setData] = useState([diaryList]);
-
+  const [data, setData] = useState(diaryList);
   const [curDate, setCurDate] = useState(new Date());
+
   const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;
 
   // diaryList가 변화하는 순간과 (수정 및 삭제)
@@ -27,7 +27,10 @@ const Home = () => {
       const lastDay = new Date(
         curDate.getFullYear(),
         curDate.getMonth() + 1,
-        0
+        0,
+        23,
+        59,
+        59
       ).getTime();
 
       setData(

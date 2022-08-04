@@ -1,5 +1,6 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import MyButton from "./MyButton";
 import DiaryItem from "./DiaryItem";
 
@@ -15,7 +16,7 @@ const filterOptionList = [
 ];
 
 // 다이어리 정렬 컴포넌트
-const ControlMenu = ({ value, onChange, optionList }) => {
+const ControlMenu = React.memo(({ value, onChange, optionList }) => {
   return (
     <select
       className="ControlMenu"
@@ -29,7 +30,7 @@ const ControlMenu = ({ value, onChange, optionList }) => {
       ))}
     </select>
   );
-};
+});
 
 const DiaryList = ({ diaryList }) => {
   const navigate = useNavigate();
@@ -83,7 +84,7 @@ const DiaryList = ({ diaryList }) => {
         <div className="right_col">
           <MyButton
             type={"positive"}
-            text={"새 일기 작성"}
+            text={"새 일기 쓰기"}
             onClick={() => navigate("/new")}
           />
         </div>
