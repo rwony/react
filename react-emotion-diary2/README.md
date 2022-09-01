@@ -2,4 +2,8 @@
 <h4>React Emotion Diary</h4>
 
 <br>
-React를 이용한 감정 다이어리
+
+1. 사용 언어
+ - React
+ - Javascript ES6
+ - CSS3
