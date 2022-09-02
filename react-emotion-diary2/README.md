@@ -5,5 +5,6 @@
 
 1. 사용 언어
  - React
- - Javascript ES6
+ - HTML5
+ - Javascript(ES6)
  - CSS3
