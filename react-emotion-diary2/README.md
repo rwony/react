@@ -1,22 +1,23 @@
-<h4>2022.08.08</h4>
-<h2>React Emotion Diary</h2>
+## React Emotion Diary
 
-<br>
+### 프로젝트 설명
 
+<hr>
 
-<h4>사용 언어</h4>
+### 사용 언어
  - React
  - HTML5
  - Javascript(ES6)
  - CSS3
 
+<hr>
 
-<br>
+### 페이지
+#### Home
+ ![image](https://user-images.githubusercontent.com/88661435/188317648-e9735381-b086-4456-a987-31c44058301f.png)
+ 
+ <br />
 
-<h4>페이지</h4>
- 1. Home
-
-
- 2. Diary Editor <br />
+#### Diary Editor
 ![image](https://user-images.githubusercontent.com/88661435/188275260-ae2a10e9-c2aa-4187-878b-1acaf819c060.png)
 
