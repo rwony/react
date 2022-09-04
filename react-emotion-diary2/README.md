@@ -26,3 +26,8 @@
 #### Diary Editor
 ![image](https://user-images.githubusercontent.com/88661435/188275260-ae2a10e9-c2aa-4187-878b-1acaf819c060.png)
 
+<hr>
+
+### 느낀 점
+- 컴포넌트 활용
+- 최적화의 필요성
