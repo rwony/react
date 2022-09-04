@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { DiaryDispatchContext } from "../App";
@@ -18,7 +18,7 @@ const DiaryEditor = ({ isEdit, originData }) => {
   const [emotion, setEmotion] = useState(3);
   const [content, setContent] = useState("");
 
-  const { onCreate, onEdit } = useContext(DiaryDispatchContext);
+  const { onCreate, onEdit, onRemove } = useContext(DiaryDispatchContext);
 
   // 작성 버튼 클릭 시 동작하는 함수
   const handleSubmit = () => {
@@ -42,8 +42,15 @@ const DiaryEditor = ({ isEdit, originData }) => {
     navigate("/", { replace: true });
   };
 
-  const handleClickEmote = (emotion) => {
+  const handleClickEmote = useCallback((emotion) => {
     setEmotion(emotion);
+  }, []);
+
+  const handleRemove = () => {
+    if (window.confirm("삭제하시겠습니까?")) {
+      onRemove(originData.id);
+      navigate("/", { replace: true });
+    }
   };
 
   useEffect(() => {
@@ -59,6 +66,11 @@ const DiaryEditor = ({ isEdit, originData }) => {
       <MyHeader
         headText={isEdit ? "일기 수정하기" : "새 일기 쓰기"}
         leftChild={<MyButton text={"<"} onClick={() => navigate(-1)} />}
+        rightChild={
+          isEdit && (
+            <MyButton text={"삭제"} type={"negative"} onClick={handleRemove} />
+          )
+        }
       />
       <div>
         <section>
